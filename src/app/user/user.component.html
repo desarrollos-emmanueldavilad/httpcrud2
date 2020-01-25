@@ -1,0 +1,65 @@
+<app-header></app-header>
+
+<div class="col-md-12 user-container">
+  <div class="search-div text-center mx-auto">
+    <h2 style="margin: auto" i18n="Title | This is the principal title@@titlePrincipal">
+      <abbr i18n i18n-title title="Titulo"> User List</abbr>
+    </h2>
+    <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus
+      class="mb-2 search" />
+  </div>
+  <ngx-spinner></ngx-spinner>
+  <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr class="text-center">
+        <th class="th-sm">#</th>
+        <th class="th-sm" i18n="name | This is the name@@name">
+          <abbr i18n i18n-title title="Nombre"> Name</abbr>
+        </th>
+        <th class="th-sm" i18n="birthday | This is the birthday@@birthday">
+          <abbr i18n i18n-title title="Fecha de cumpleaños"> Birthday</abbr>
+        </th>
+        <th class="th-sm" i18n="actions | This is the actions@@actions">
+          <abbr i18n i18n-title title="Acciones"> Actions</abbr>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center" *ngFor="let user of userData | filter: searchTerm; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.birthdate | date: "dd/MM/yyyy" }}</td>
+        <td>
+          <a style="width:100px" (click)="addUser()" style="margin-left: 20px;">
+            <i class="fas fa-user-plus"></i>
+          </a>
+          <a (click)="delete(user)" style="margin-left: 20px;">
+            <i class="far fa-trash-alt"></i>
+          </a>
+          <a [routerLink]="['/edit-user/', user.id]" style="margin-left: 20px;">
+            <i class="fas fa-user-edit"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot class="tableFoot">
+      <tr class="text-center">
+        <th class="th-sm">Id</th>
+        <th class="th-sm" i18n="name | This is the name@@name">
+          <abbr i18n i18n-title title="Nombre"> Name</abbr>
+        </th>
+        <th class="th-sm" i18n="birthday | This is the birthday@@birthday">
+          <abbr i18n i18n-title title="Fecha de cumpleaños"> Birthday</abbr>
+        </th>
+        <th class="th-sm" i18n="actions | This is the actions@@actions">
+          <abbr i18n i18n-title title="Acciones"> Actions</abbr>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<div *ngIf="!userData">
+  <h4 class="text-center" i18n="dontUsers | This is the condicion@@if">
+    <abbr i18n i18n-title title="Sin usuarios en este momento"> Don't Exits users in this moment</abbr>
+  </h4>
+</div>
